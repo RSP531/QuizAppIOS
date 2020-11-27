@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         Question(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
         Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
     ]
+    
     var questionNumber = 0
     
     override func viewDidLoad() {
@@ -55,13 +56,15 @@ class ViewController: UIViewController {
             questionNumber = 0
         }
         
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(udpateUI), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(udpateUI), userInfo: nil, repeats: false)
     }
     
     @objc func udpateUI(){
         questionLabel.text = quiz[questionNumber].text
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
+        progressBar.progress = Float(questionNumber+1) / Float (quiz.count)
+
     }
 }
 
