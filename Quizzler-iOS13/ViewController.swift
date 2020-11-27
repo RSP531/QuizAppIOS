@@ -15,8 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     
-    var timer = Timer()
-
     let quiz = [
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
@@ -57,18 +55,13 @@ class ViewController: UIViewController {
             questionNumber = 0
         }
         
-        udpateUI()
-
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(udpateUI), userInfo: nil, repeats: false)
     }
     
-    @objc func resetButtons(){
+    @objc func udpateUI(){
+        questionLabel.text = quiz[questionNumber].text
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
-    }
-    
-    func udpateUI(){
-        questionLabel.text = quiz[questionNumber].text
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(resetButtons), userInfo: nil, repeats: true)
     }
 }
 
