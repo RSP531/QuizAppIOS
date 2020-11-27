@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     
+    var timer = Timer()
+
     let quiz = [
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
@@ -42,9 +44,11 @@ class ViewController: UIViewController {
         if userAnswer == actualAnswer {
             //correct
             print("Right!")
+            sender.backgroundColor = UIColor.green
         } else {
             //incorrect
             print("Wrong!")
+            sender.backgroundColor = UIColor.red
         }
         
         if questionNumber < quiz.count - 1 {
@@ -54,10 +58,17 @@ class ViewController: UIViewController {
         }
         
         udpateUI()
+
+    }
+    
+    @objc func resetButtons(){
+        trueButton.backgroundColor = UIColor.clear
+        falseButton.backgroundColor = UIColor.clear
     }
     
     func udpateUI(){
         questionLabel.text = quiz[questionNumber].text
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(resetButtons), userInfo: nil, repeats: true)
     }
 }
 
